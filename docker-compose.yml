@@ -1,0 +1,21 @@
+version: '3.4'
+
+services:
+  usermanagementapi:
+    build: ./src/UserManagementApp.API
+    ports:
+      - "8080:80"
+    depends_on:
+      - postgres
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - DefaultConnection=Host=postgres;Port=5432;Username=postgres;Password=password;Database=usermanagementdb
+
+  postgres:
+    image: postgres:13
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: usermanagementdb
+    ports:
+      - "5432:5432"
